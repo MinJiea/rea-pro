@@ -1,7 +1,8 @@
 import React, { useState, useReducer }from 'react';
 import { Button, Input} from 'antd'
 import axios from 'axios';
-import Mock from 'mockjs'
+// import Mock from 'mockjs'
+import './mock';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,35 +16,31 @@ function reducer(state, action) {
 }
 const initialState = {v:true};
 function App() {
-	// const  [logstate, setLogstate] = useState(0)
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const data = Mock.mock(
-		'/mock.json',
-		'get',
-		{
-			success:true,
-			data:true
-		}
-	)
+	// const data = Mock.mock(
+	// 	'/mock.json',
+	// 	'get',
+	// 	{
+	// 		success:true,
+	// 		data:true
+	// 	}
+	// )
 	return (
 	<div>
-		<Input placeholder="账号" 
-		innerRef={(input) => this.account = input}
+		<Input placeholder="账号" id = 'input1'
+		// innerRef={(input) => this.account = input}
 		></Input>
 		<Input placeholder="密码" 
 		innerRef={(input) => this.password = input}
 		></Input>
 		<Button type="primary" onClick={
-			// ()=>dispatch({type:'login'})
-			()=>{(axios.get('/mock.json').then((res)=> {console.log(res.data);dispatch({type:'login'})}))}
-			// (account,password)=>{(axios.get('/mock.json?account'+account+ '&password=' + password).then((res)=> {console.log(res.data);dispatch({type:'logout'})}))}
+			()=>{(axios.get('/mock.json').then((res)=> {res.data.id === document.getElementById('input1').value?dispatch({type:'login'}):console.log('wu')}))}
 		}>登录</Button>
 		{
 			state.v ?
 			<Button type="primary" >未登录</Button> :
 			<Button type="primary" onClick={() => dispatch({type:'logout'})}>退出</Button>
 		}
-		
 	</div>
   );
 }
