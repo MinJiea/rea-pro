@@ -27,14 +27,14 @@ function App() {
 	// )
 	return (
 	<div>
-		<Input placeholder="账号" id = 'input1'
-		// innerRef={(input) => this.account = input}
+		<Input placeholder="账号" 
+		innerRef={(input) => this.account = input}
 		></Input>
 		<Input placeholder="密码" 
 		innerRef={(input) => this.password = input}
 		></Input>
 		<Button type="primary" onClick={
-			()=>{(axios.get('/mock.json').then((res)=> {res.data.id === document.getElementById('input1').value?dispatch({type:'login'}):console.log('wu')}))}
+			()=>{(axios.get('/mock.json').then((res)=> {res.data.user.id === this.account.value&&res.data.user.password === this.password.value?dispatch({type:'login'}):console.log('wu')}))}
 		}>登录</Button>
 		{
 			state.v ?
